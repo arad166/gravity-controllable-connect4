@@ -1,24 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Board } from './components/Board';
+import { GameInfo } from './components/GameInfo';
+import { useGame } from './hooks/useGame';
 import './App.css';
 
 function App() {
+  const { gameState, makeMove, resetGame } = useGame();
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Gravity Controllable Connect 4</h1>
+        <p>Phase 1: Basic Game</p>
       </header>
+      
+      <main className="App-main">
+        <Board
+          board={gameState.board}
+          onColumnClick={makeMove}
+          currentPlayer={gameState.currentPlayer}
+        />
+        
+        <GameInfo
+          gameStatus={gameState.gameStatus}
+          winner={gameState.winner}
+          onReset={resetGame}
+        />
+      </main>
     </div>
   );
 }
