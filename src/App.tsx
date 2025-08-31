@@ -23,6 +23,7 @@ function App() {
         <GameInfo
           gameStatus={gameState.gameStatus}
           winner={gameState.winner}
+          currentPlayer={gameState.currentPlayer}
           onReset={resetGame}
         />
       </main>

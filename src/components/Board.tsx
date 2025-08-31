@@ -15,12 +15,6 @@ export const Board: React.FC<BoardProps> = ({ board, onColumnClick, currentPlaye
 
   return (
     <div className="board">
-      <div className="board-header">
-        <div className="current-player">
-          Current Player: <span className={`player-${currentPlayer}`}>Player {currentPlayer}</span>
-        </div>
-      </div>
-      
       {/* 矢印インジケーター */}
       <div className="arrow-indicators">
         {Array.from({ length: 7 }, (_, colIndex) => (
