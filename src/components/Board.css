@@ -66,17 +66,18 @@
   border: none;
   position: relative;
   overflow: hidden;
+  background: #567ba0;
 }
 
 .insert-btn.active[data-player="1"] {
-  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
-  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+  background: #567ba0;
+  box-shadow: 0 4px 15px rgba(86, 123, 160, 0.4);
   transform: translateY(0);
 }
 
 .insert-btn.active[data-player="2"] {
-  background: linear-gradient(135deg, #74b9ff, #5dade2);
-  box-shadow: 0 4px 15px rgba(116, 185, 255, 0.4);
+  background: #567ba0;
+  box-shadow: 0 4px 15px rgba(86, 123, 160, 0.4);
   transform: translateY(0);
 }
 
@@ -120,10 +121,10 @@
 
 /* 重力操作ボタンのスタイル */
 .insert-btn.gravity-control {
-  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  background: #567ba0;
   color: white;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+  box-shadow: 0 4px 15px rgba(86, 123, 160, 0.4);
   font-weight: bold;
 }
 
@@ -144,8 +145,8 @@
 
 /* プレイヤー2の重力操作ボタンの色 */
 .insert-btn.gravity-control[data-player="2"] {
-  background: linear-gradient(135deg, #74b9ff, #5dade2);
-  box-shadow: 0 4px 15px rgba(116, 185, 255, 0.4);
+  background: #567ba0;
+  box-shadow: 0 4px 15px rgba(86, 123, 160, 0.4);
 }
 
 .insert-btn.gravity-control[data-player="2"]:hover {
