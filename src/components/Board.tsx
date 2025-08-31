@@ -6,15 +6,18 @@ interface BoardProps {
   board: BoardType;
   onColumnClick: (col: number) => void;
   currentPlayer: number;
+  gameStatus: 'playing' | 'won' | 'draw';
 }
 
-export const Board: React.FC<BoardProps> = ({ board, onColumnClick, currentPlayer }) => {
+export const Board: React.FC<BoardProps> = ({ board, onColumnClick, currentPlayer, gameStatus }) => {
   const handleColumnClick = (col: number) => {
     onColumnClick(col);
   };
 
+  const boardClassName = `board ${gameStatus === 'won' ? 'victory' : ''}`;
+
   return (
-    <div className="board">
+    <div className={boardClassName}>
       {/* 矢印インジケーター */}
       <div className="arrow-indicators">
         {Array.from({ length: 7 }, (_, colIndex) => (

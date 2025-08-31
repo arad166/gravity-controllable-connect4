@@ -18,6 +18,7 @@ function App() {
           board={gameState.board}
           onColumnClick={makeMove}
           currentPlayer={gameState.currentPlayer}
+          gameStatus={gameState.gameStatus}
         />
         
         <GameInfo

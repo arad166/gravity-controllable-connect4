@@ -10,6 +10,23 @@
   margin-bottom: 5px;
 }
 
+/* 勝利時のボード全体のエフェクト */
+.board.victory {
+  animation: boardVictory 1.5s ease-out;
+}
+
+.board.victory .board-grid {
+  animation: gridVictory 1.5s ease-out;
+}
+
+/* 勝利したプレイヤーのコインのエフェクト */
+.board.victory .board-cell.player-1 .coin {
+  animation: coinVictoryRed 2s ease-in-out infinite;
+}
+
+.board.victory .board-cell.player-2 .coin {
+  animation: coinVictoryBlue 2s ease-in-out infinite;
+}
 
 
 .arrow-indicators {
@@ -132,4 +149,54 @@
 
 .board-cell.player-2 .coin {
   background: radial-gradient(circle at 30% 30%, #74b9ff, #3498db);
+}
+
+/* 勝利時のボード全体のアニメーション */
+@keyframes boardVictory {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 勝利時のグリッドのアニメーション */
+@keyframes gridVictory {
+  0% {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+  }
+  100% {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* プレイヤー1（赤）の勝利コインアニメーション */
+@keyframes coinVictoryRed {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 5px rgba(231, 76, 60, 0.5));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 15px rgba(231, 76, 60, 0.8));
+  }
+}
+
+/* プレイヤー2（青）の勝利コインアニメーション */
+@keyframes coinVictoryBlue {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 5px rgba(52, 152, 219, 0.5));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 15px rgba(52, 152, 219, 0.8));
+  }
 }

@@ -16,20 +16,24 @@
 
 .status-message.won {
   color: #348a57; /* デフォルトの勝利色（引き分け時など） */
+  animation: victoryCelebration 1s ease-out, victoryGlow 2s ease-in-out infinite alternate;
 }
 
 /* プレイヤー1の色（赤系） */
 .status-message.won.player-1 {
   color: #e74c3c;
+  animation: victoryCelebration 1s ease-out, victoryGlowRed 2s ease-in-out infinite alternate;
 }
 
 /* プレイヤー2の色（青系） */
 .status-message.won.player-2 {
   color: #3498db;
+  animation: victoryCelebration 1s ease-out, victoryGlowBlue 2s ease-in-out infinite alternate;
 }
 
 .status-message.draw {
   color: #f39c12;
+  animation: drawResult 1s ease-out, drawPulse 2s ease-in-out infinite;
 }
 
 /* ゲーム中のメッセージ（Current Player: の部分はデフォルト色、Player N の部分のみ色を変更） */
@@ -78,5 +82,83 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* 勝利時のアニメーション */
+@keyframes victoryCelebration {
+  0% {
+    transform: scale(0.8) rotate(-5deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(2deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* 勝利時のグロー効果（プレイヤー1 - 赤系） */
+@keyframes victoryGlowRed {
+  0% {
+    filter: drop-shadow(0 0 5px rgba(231, 76, 60, 0.3));
+    text-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+  }
+  100% {
+    filter: drop-shadow(0 0 15px rgba(231, 76, 60, 0.6));
+    text-shadow: 0 0 20px rgba(231, 76, 60, 0.8);
+  }
+}
+
+/* 勝利時のグロー効果（プレイヤー2 - 青系） */
+@keyframes victoryGlowBlue {
+  0% {
+    filter: drop-shadow(0 0 5px rgba(52, 152, 219, 0.3));
+    text-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+  }
+  100% {
+    filter: drop-shadow(0 0 15px rgba(52, 152, 219, 0.6));
+    text-shadow: 0 0 20px rgba(52, 152, 219, 0.8);
+  }
+}
+
+/* 勝利時のグロー効果（デフォルト） */
+@keyframes victoryGlow {
+  0% {
+    filter: drop-shadow(0 0 5px rgba(52, 138, 87, 0.3));
+    text-shadow: 0 0 10px rgba(52, 138, 87, 0.5);
+  }
+  100% {
+    filter: drop-shadow(0 0 15px rgba(52, 138, 87, 0.6));
+    text-shadow: 0 0 20px rgba(52, 138, 87, 0.8);
+  }
+}
+
+/* 引き分け時のアニメーション */
+@keyframes drawResult {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 引き分け時のパルス効果 */
+@keyframes drawPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 3px rgba(243, 156, 18, 0.3));
+  }
+  50% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 8px rgba(243, 156, 18, 0.5));
   }
 }
