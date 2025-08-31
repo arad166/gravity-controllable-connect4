@@ -37,7 +37,7 @@
   height: 100%;
   justify-content: flex-start;
   align-items: center;
-  gap: 0;
+  gap: 2px;
 }
 
 .insert-buttons.right {
@@ -48,7 +48,7 @@
   height: 100%;
   justify-content: flex-start;
   align-items: center;
-  gap: 0;
+  gap: 2px;
 }
 
 
@@ -80,6 +80,27 @@
   transform: translateY(0);
 }
 
+.insert-btn.active[data-player="1"]:hover {
+  background: linear-gradient(135deg, #ff5252, #d32f2f);
+  transform: translateY(3px);
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+}
+
+.insert-btn.active[data-player="2"]:hover {
+  background: linear-gradient(135deg, #5dade2, #3498db);
+  transform: translateY(3px);
+  box-shadow: 0 8px 25px rgba(116, 185, 255, 0.6);
+}
+
+/* 左右の駒挿入ボタンのホバーを横方向に */
+.insert-buttons.left .insert-btn.active:hover {
+  transform: translateX(3px);
+}
+
+.insert-buttons.right .insert-btn.active:hover {
+  transform: translateX(-3px);
+}
+
 .insert-btn.inactive {
   background: linear-gradient(135deg, #bdc3c7, #95a5a6);
   color: #7f8c8d;
@@ -87,16 +108,78 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-.insert-btn.active[data-player="1"]:hover {
-  background: linear-gradient(135deg, #ff5252, #d32f2f);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+/* 重力操作ボタンのスタイル */
+.insert-btn.gravity-control {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+  font-weight: bold;
 }
 
-.insert-btn.active[data-player="2"]:hover {
+.insert-btn.gravity-control:hover {
+  background: linear-gradient(135deg, #ff5252, #d32f2f);
+  transform: translateY(3px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+}
+
+/* 左右の重力操作ボタンのホバーを横方向に */
+.insert-buttons.left .insert-btn.gravity-control:hover {
+  transform: translateX(3px);
+}
+
+.insert-buttons.right .insert-btn.gravity-control:hover {
+  transform: translateX(-3px);
+}
+
+/* プレイヤー2の重力操作ボタンの色 */
+.insert-btn.gravity-control[data-player="2"] {
+  background: linear-gradient(135deg, #74b9ff, #5dade2);
+  box-shadow: 0 4px 15px rgba(116, 185, 255, 0.4);
+}
+
+.insert-btn.gravity-control[data-player="2"]:hover {
   background: linear-gradient(135deg, #5dade2, #3498db);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(116, 185, 255, 0.6);
+  box-shadow: 0 6px 20px rgba(116, 185, 255, 0.6);
+}
+
+/* 重力操作ボタンの幅と高さを盤面に合わせる */
+.insert-btn.gravity-control.wide {
+  width: 360px; 
+  height: 50px;
+}
+
+.insert-btn.gravity-control.tall {
+  width: 50px;
+  height: 300px; 
+}
+
+/* 重力操作ボタンのテキストと矢印のスタイル */
+.gravity-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* 左右の重力操作ボタンのテキストを90度回転 */
+.insert-buttons.left .gravity-text,
+.insert-buttons.right .gravity-text {
+  font-size: 1.2rem;
+  transform: rotate(90deg);
+  white-space: nowrap;
+  line-height: 1;
+  display: inline;
+}
+
+/* 左側の重力操作ボタンのテキストを270度回転 */
+.insert-buttons.left .gravity-text {
+  transform: rotate(270deg);
+}
+
+.gravity-arrow {
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .insert-btn.active:active {

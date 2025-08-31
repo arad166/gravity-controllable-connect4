@@ -1,7 +1,6 @@
 import React from 'react';
 import { Board } from './components/Board';
 import { GameInfo } from './components/GameInfo';
-import { GravityControls } from './components/GravityControls';
 import { useGame } from './hooks/useGame';
 import './App.css';
 
@@ -22,16 +21,10 @@ function App() {
             currentPlayer={gameState.currentPlayer}
             gameStatus={gameState.gameStatus}
             gravityDirection={gameState.gravityDirection}
+            onGravityChange={changeGravity}
           />
           
           <div className="controls-section">
-            <GravityControls
-              currentGravity={gameState.gravityDirection}
-              onGravityChange={changeGravity}
-              gameStatus={gameState.gameStatus}
-              currentPlayer={gameState.currentPlayer}
-            />
-            
             <GameInfo
               gameStatus={gameState.gameStatus}
               winner={gameState.winner}

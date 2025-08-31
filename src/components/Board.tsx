@@ -8,6 +8,7 @@ interface BoardProps {
   currentPlayer: number;
   gameStatus: 'playing' | 'won' | 'draw';
   gravityDirection: GravityDirection;
+  onGravityChange: (direction: GravityDirection) => void;
 }
 
 export const Board: React.FC<BoardProps> = ({ 
@@ -15,7 +16,8 @@ export const Board: React.FC<BoardProps> = ({
   onColumnClick, 
   currentPlayer, 
   gameStatus,
-  gravityDirection 
+  gravityDirection,
+  onGravityChange
 }) => {
   const handleInsertClick = (position: number) => {
     onColumnClick(position);
@@ -23,75 +25,130 @@ export const Board: React.FC<BoardProps> = ({
 
   const boardClassName = `board ${gameStatus === 'won' ? 'victory' : ''}`;
 
-  // 重力方向に応じて有効な挿入ボタンを決定
+  // 重力方向に応じて有効な挿入ボタンと重力操作ボタンを決定
   const getValidInsertButtons = () => {
     const buttons = [];
     
-    // 上向きボタン（常に表示）
+    // 上向きボタン（重力が下向きの時のみ有効、それ以外は重力操作ボタン）
     buttons.push(
       <div key="top" className="insert-buttons top">
-        {Array.from({ length: 7 }, (_, colIndex) => (
+        {gravityDirection === 'down' ? (
+          // 駒挿入ボタン（7個）
+          Array.from({ length: 7 }, (_, colIndex) => (
+            <div
+              key={colIndex}
+              className={`insert-btn ${board[0][colIndex] === null ? 'active' : 'inactive'}`}
+              data-player={currentPlayer}
+              onClick={() => board[0][colIndex] === null && handleInsertClick(colIndex)}
+            >
+              ▼
+            </div>
+          ))
+        ) : (
+          // 重力操作ボタン（1個、幅は盤面に合わせる）
           <div
-            key={colIndex}
-            className={`insert-btn ${gravityDirection === 'down' && board[0][colIndex] === null ? 'active' : 'inactive'}`}
+            className="insert-btn gravity-control wide"
             data-player={currentPlayer}
-            onClick={() => gravityDirection === 'down' && board[0][colIndex] === null && handleInsertClick(colIndex)}
+            onClick={() => handleGravityChange('down')}
           >
-            ▼
+            <div className="gravity-text">Change Gravity</div>
+            <div className="gravity-arrow">▼</div>
           </div>
-        ))}
+        )}
       </div>
     );
 
-    // 下向きボタン（常に表示）
+    // 下向きボタン（重力が上向きの時のみ有効、それ以外は重力操作ボタン）
     buttons.push(
       <div key="bottom" className="insert-buttons bottom">
-        {Array.from({ length: 7 }, (_, colIndex) => (
+        {gravityDirection === 'up' ? (
+          // 駒挿入ボタン（7個）
+          Array.from({ length: 7 }, (_, colIndex) => (
+            <div
+              key={colIndex}
+              className={`insert-btn ${board[BOARD_ROWS - 1][colIndex] === null ? 'active' : 'inactive'}`}
+              data-player={currentPlayer}
+              onClick={() => board[BOARD_ROWS - 1][colIndex] === null && handleInsertClick(colIndex)}
+            >
+              ▲
+            </div>
+          ))
+        ) : (
+          // 重力操作ボタン（1個、幅は盤面に合わせる）
           <div
-            key={colIndex}
-            className={`insert-btn ${gravityDirection === 'up' && board[BOARD_ROWS - 1][colIndex] === null ? 'active' : 'inactive'}`}
+            className="insert-btn gravity-control wide"
             data-player={currentPlayer}
-            onClick={() => gravityDirection === 'up' && board[BOARD_ROWS - 1][colIndex] === null && handleInsertClick(colIndex)}
+            onClick={() => handleGravityChange('up')}
           >
-            ▲
+            <div className="gravity-text">Change Gravity</div>
+            <div className="gravity-arrow">▲</div>
           </div>
-        ))}
+        )}
       </div>
     );
 
-    // 左向きボタン（常に表示）
+    // 左向きボタン（重力が右向きの時のみ有効、それ以外は重力操作ボタン）
     buttons.push(
       <div key="left" className="insert-buttons left">
-        {Array.from({ length: 6 }, (_, rowIndex) => (
+        {gravityDirection === 'right' ? (
+          // 駒挿入ボタン（6個）
+          Array.from({ length: 6 }, (_, rowIndex) => (
+            <div
+              key={rowIndex}
+              className={`insert-btn ${board[rowIndex][0] === null ? 'active' : 'inactive'}`}
+              data-player={currentPlayer}
+              onClick={() => board[rowIndex][0] === null && handleInsertClick(rowIndex)}
+            >
+              ▶
+            </div>
+          ))
+        ) : (
+          // 重力操作ボタン（1個、高さは盤面に合わせる）
           <div
-            key={rowIndex}
-            className={`insert-btn ${gravityDirection === 'right' && board[rowIndex][0] === null ? 'active' : 'inactive'}`}
+            className="insert-btn gravity-control tall"
             data-player={currentPlayer}
-            onClick={() => gravityDirection === 'right' && board[rowIndex][0] === null && handleInsertClick(rowIndex)}
+            onClick={() => handleGravityChange('right')}
           >
-            ▶
+            <div className="gravity-text">Change Gravity▼</div>
           </div>
-        ))}
+        )}
       </div>
     );
 
-    // 右向きボタン（常に表示）
+    // 右向きボタン（重力が左向きの時のみ有効、それ以外は重力操作ボタン）
     buttons.push(
       <div key="right" className="insert-buttons right">
-        {Array.from({ length: 6 }, (_, rowIndex) => (
+        {gravityDirection === 'left' ? (
+          // 駒挿入ボタン（6個）
+          Array.from({ length: 6 }, (_, rowIndex) => (
+            <div
+              key={rowIndex}
+              className={`insert-btn ${board[rowIndex][BOARD_COLS - 1] === null ? 'active' : 'inactive'}`}
+              data-player={currentPlayer}
+              onClick={() => board[rowIndex][BOARD_COLS - 1] === null && handleInsertClick(rowIndex)}
+            >
+              ◀
+            </div>
+          ))
+        ) : (
+          // 重力操作ボタン（1個、高さは盤面に合わせる）
           <div
-            key={rowIndex}
-            className={`insert-btn ${gravityDirection === 'left' && board[rowIndex][BOARD_COLS - 1] === null ? 'active' : 'inactive'}`}
+            className="insert-btn gravity-control tall"
             data-player={currentPlayer}
-            onClick={() => gravityDirection === 'left' && board[rowIndex][BOARD_COLS - 1] === null && handleInsertClick(rowIndex)}
+            onClick={() => handleGravityChange('left')}
           >
-            ◀
+            <div className="gravity-text">Change Gravity▼</div>
           </div>
-        ))}
+        )}
       </div>
     );
     
     return buttons;
+  };
+
+  const handleGravityChange = (direction: GravityDirection) => {
+    // 重力変更の処理を親コンポーネントに委譲
+    onGravityChange(direction);
   };
 
   return (
