@@ -21,6 +21,20 @@ export const Board: React.FC<BoardProps> = ({ board, onColumnClick, currentPlaye
         </div>
       </div>
       
+      {/* 矢印インジケーター */}
+      <div className="arrow-indicators">
+        {Array.from({ length: 7 }, (_, colIndex) => (
+          <div
+            key={colIndex}
+            className={`arrow-indicator ${board[0][colIndex] === null ? 'active' : 'inactive'}`}
+            data-player={currentPlayer}
+            onClick={() => board[0][colIndex] === null && handleColumnClick(colIndex)}
+          >
+            ▼
+          </div>
+        ))}
+      </div>
+      
       <div className="board-grid">
         {board.map((row, rowIndex) => (
           <div key={rowIndex} className="board-row">
