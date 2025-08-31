@@ -101,6 +101,16 @@
   transform: translateX(-3px);
 }
 
+/* 下向きボタン（bottom）のホバーを上向きに */
+.insert-buttons.bottom .insert-btn.active:hover {
+  transform: translateY(-3px);
+}
+
+/* 上向きボタン（top）のホバーは下向きのまま */
+.insert-buttons.top .insert-btn.active:hover {
+  transform: translateY(3px);
+}
+
 .insert-btn.inactive {
   background: linear-gradient(135deg, #bdc3c7, #95a5a6);
   color: #7f8c8d;
@@ -317,4 +327,21 @@
     transform: scale(1.1);
     filter: drop-shadow(0 0 15px rgba(52, 152, 219, 0.8));
   }
+}
+
+/* 重力操作ボタンのホバー効果を位置に応じて調整 */
+.insert-buttons.top .insert-btn.gravity-control:hover {
+  transform: translateY(3px);
+}
+
+.insert-buttons.bottom .insert-btn.gravity-control:hover {
+  transform: translateY(-3px);
+}
+
+.insert-buttons.left .insert-btn.gravity-control:hover {
+  transform: translateX(3px);
+}
+
+.insert-buttons.right .insert-btn.gravity-control:hover {
+  transform: translateX(-3px);
 }
