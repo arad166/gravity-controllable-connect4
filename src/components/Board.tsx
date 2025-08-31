@@ -42,7 +42,6 @@ export const Board: React.FC<BoardProps> = ({ board, onColumnClick, currentPlaye
               <div
                 key={`${rowIndex}-${colIndex}`}
                 className={`board-cell ${cell ? `player-${cell}` : ''}`}
-                onClick={() => handleColumnClick(colIndex)}
               >
                 {cell && <div className="coin" />}
               </div>
