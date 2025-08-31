@@ -11,7 +11,6 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Gravity Controllable Connect 4</h1>
-        <p>Phase 1: Basic Game</p>
       </header>
       
       <main className="App-main">
