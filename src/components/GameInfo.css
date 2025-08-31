@@ -14,7 +14,17 @@
 }
 
 .status-message.won {
-  color: #2ecc71;
+  color: #348a57; /* デフォルトの勝利色（引き分け時など） */
+}
+
+/* プレイヤー1の色（赤系） */
+.status-message.won.player-1 {
+  color: #e74c3c;
+}
+
+/* プレイヤー2の色（青系） */
+.status-message.won.player-2 {
+  color: #3498db;
 }
 
 .status-message.draw {

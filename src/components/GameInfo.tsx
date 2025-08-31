@@ -14,7 +14,7 @@ export const GameInfo: React.FC<GameInfoProps> = ({ gameStatus, winner, onReset 
       case 'won':
         return `Player ${winner} wins!`;
       case 'draw':
-        return "It's a draw!";
+        return "Draw!";
       default:
         return null;
     }
@@ -22,10 +22,18 @@ export const GameInfo: React.FC<GameInfoProps> = ({ gameStatus, winner, onReset 
 
   const statusMessage = getStatusMessage();
 
+  // 勝ったプレイヤーの色に合わせてクラス名を設定
+  const getStatusMessageClass = () => {
+    if (gameStatus === 'won' && winner) {
+      return `status-message won player-${winner}`;
+    }
+    return `status-message ${gameStatus}`;
+  };
+
   return (
     <div className="game-info">
       {statusMessage && (
-        <div className={`status-message ${gameStatus}`}>
+        <div className={getStatusMessageClass()}>
           {statusMessage}
         </div>
       )}
