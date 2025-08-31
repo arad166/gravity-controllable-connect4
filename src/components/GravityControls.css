@@ -1,0 +1,99 @@
+.gravity-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(44, 62, 80, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.gravity-controls h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #34495e;
+}
+
+.gravity-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.gravity-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.gravity-btn {
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}
+
+.gravity-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+}
+
+.gravity-btn.active {
+  background: linear-gradient(135deg, #bdc3c7, #95a5a6);
+  color: #7f8c8d;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  cursor: not-allowed;
+}
+
+.gravity-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* プレイヤー2のターンの時の色 - 駒挿入ボタンと同じ色に統一 */
+.gravity-btn[data-player="2"]:not(.active) {
+  background: linear-gradient(135deg, #74b9ff, #5dade2) !important;
+  box-shadow: 0 4px 15px rgba(116, 185, 255, 0.4) !important;
+}
+
+.gravity-btn[data-player="2"]:not(.active):hover {
+  box-shadow: 0 6px 20px rgba(116, 185, 255, 0.6) !important;
+}
+
+.current-gravity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
+  min-width: 60px;
+}
+
+.gravity-label {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+.gravity-arrow {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #2c3e50;
+}

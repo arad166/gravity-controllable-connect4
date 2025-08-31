@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
+  position: relative;
 }
 
 .board-header {
@@ -10,35 +11,50 @@
   margin-bottom: 5px;
 }
 
-/* 勝利時のボード全体のエフェクト */
-.board.victory {
-  animation: boardVictory 1.5s ease-out;
-}
-
-.board.victory .board-grid {
-  animation: gridVictory 1.5s ease-out;
-}
-
-/* 勝利したプレイヤーのコインのエフェクト */
-.board.victory .board-cell.player-1 .coin {
-  animation: coinVictoryRed 2s ease-in-out infinite;
-}
-
-.board.victory .board-cell.player-2 .coin {
-  animation: coinVictoryBlue 2s ease-in-out infinite;
-}
-
-
-.arrow-indicators {
+/* 挿入ボタンのスタイル */
+.insert-buttons {
   display: flex;
   gap: 2px;
-  margin-bottom: 12px;
   padding: 0 10px;
 }
 
-.arrow-indicator {
+.insert-buttons.top {
+  margin-bottom: 12px;
+}
+
+.insert-buttons.bottom {
+  margin-top: 12px;
+  position: relative;
+  z-index: 1;
+  order: 2;
+}
+
+.insert-buttons.left {
+  flex-direction: column;
+  position: absolute;
+  left: -90px;
+  top: 85px;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0;
+}
+
+.insert-buttons.right {
+  flex-direction: column;
+  position: absolute;
+  right: -90px;
+  top: 85px;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0;
+}
+
+
+.insert-btn {
   width: 50px;
-  height: 35px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,38 +68,38 @@
   overflow: hidden;
 }
 
-.arrow-indicator.active[data-player="1"] {
+.insert-btn.active[data-player="1"] {
   background: linear-gradient(135deg, #ff6b6b, #ee5a52);
   box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
   transform: translateY(0);
 }
 
-.arrow-indicator.active[data-player="2"] {
+.insert-btn.active[data-player="2"] {
   background: linear-gradient(135deg, #74b9ff, #5dade2);
   box-shadow: 0 4px 15px rgba(116, 185, 255, 0.4);
   transform: translateY(0);
 }
 
-.arrow-indicator.inactive {
+.insert-btn.inactive {
   background: linear-gradient(135deg, #bdc3c7, #95a5a6);
   color: #7f8c8d;
   cursor: not-allowed;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-.arrow-indicator.active[data-player="1"]:hover {
+.insert-btn.active[data-player="1"]:hover {
   background: linear-gradient(135deg, #ff5252, #d32f2f);
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
 }
 
-.arrow-indicator.active[data-player="2"]:hover {
+.insert-btn.active[data-player="2"]:hover {
   background: linear-gradient(135deg, #5dade2, #3498db);
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(116, 185, 255, 0.6);
 }
 
-.arrow-indicator.active:active {
+.insert-btn.active:active {
   transform: translateY(-1px);
 }
 
@@ -108,6 +124,7 @@
   padding: 8px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  order: 1;
 }
 
 .board-row {
@@ -149,6 +166,24 @@
 
 .board-cell.player-2 .coin {
   background: radial-gradient(circle at 30% 30%, #74b9ff, #3498db);
+}
+
+/* 勝利時のボード全体のエフェクト */
+.board.victory {
+  animation: boardVictory 1.5s ease-out;
+}
+
+.board.victory .board-grid {
+  animation: gridVictory 1.5s ease-out;
+}
+
+/* 勝利したプレイヤーのコインのエフェクト */
+.board.victory .board-cell.player-1 .coin {
+  animation: coinVictoryRed 2s ease-in-out infinite;
+}
+
+.board.victory .board-cell.player-2 .coin {
+  animation: coinVictoryBlue 2s ease-in-out infinite;
 }
 
 /* 勝利時のボード全体のアニメーション */
