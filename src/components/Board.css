@@ -1,3 +1,7 @@
+/* ========================================
+   BOARD LAYOUT & STRUCTURE
+   ======================================== */
+
 .board {
   display: flex;
   flex-direction: column;
@@ -11,204 +15,9 @@
   margin-bottom: 5px;
 }
 
-/* 挿入ボタンのスタイル */
-.insert-buttons {
-  display: flex;
-  gap: 2px;
-  padding: 0 10px;
-}
-
-.insert-buttons.top {
-  margin-bottom: 12px;
-}
-
-.insert-buttons.bottom {
-  margin-top: 12px;
-  position: relative;
-  z-index: 1;
-  order: 2;
-}
-
-.insert-buttons.left {
-  flex-direction: column;
-  position: absolute;
-  left: -90px;
-  top: 85px;
-  height: 100%;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 2px;
-}
-
-.insert-buttons.right {
-  flex-direction: column;
-  position: absolute;
-  right: -90px;
-  top: 85px;
-  height: 100%;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 2px;
-}
-
-
-.insert-btn {
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 6px;
-  border: none;
-  position: relative;
-  overflow: hidden;
-  background: #567ba0;
-}
-
-.insert-btn.active[data-player="1"] {
-  background: #567ba0;
-  box-shadow: 0 4px 15px rgba(86, 123, 160, 0.4);
-  transform: translateY(0);
-}
-
-.insert-btn.active[data-player="2"] {
-  background: #567ba0;
-  box-shadow: 0 4px 15px rgba(86, 123, 160, 0.4);
-  transform: translateY(0);
-}
-
-.insert-btn.active[data-player="1"]:hover {
-  background: linear-gradient(135deg, #ff5252, #d32f2f);
-  transform: translateY(3px);
-  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
-}
-
-.insert-btn.active[data-player="2"]:hover {
-  background: linear-gradient(135deg, #5dade2, #3498db);
-  transform: translateY(3px);
-  box-shadow: 0 8px 25px rgba(116, 185, 255, 0.6);
-}
-
-/* 左右の駒挿入ボタンのホバーを横方向に */
-.insert-buttons.left .insert-btn.active:hover {
-  transform: translateX(3px);
-}
-
-.insert-buttons.right .insert-btn.active:hover {
-  transform: translateX(-3px);
-}
-
-/* 下向きボタン（bottom）のホバーを上向きに */
-.insert-buttons.bottom .insert-btn.active:hover {
-  transform: translateY(-3px);
-}
-
-/* 上向きボタン（top）のホバーは下向きのまま */
-.insert-buttons.top .insert-btn.active:hover {
-  transform: translateY(3px);
-}
-
-.insert-btn.inactive {
-  background: linear-gradient(135deg, #bdc3c7, #95a5a6);
-  color: #7f8c8d;
-  cursor: not-allowed;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* 重力操作ボタンのスタイル */
-.insert-btn.gravity-control {
-  background: #567ba0;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(86, 123, 160, 0.4);
-  font-weight: bold;
-}
-
-.insert-btn.gravity-control:hover {
-  background: linear-gradient(135deg, #ff5252, #d32f2f);
-  transform: translateY(3px);
-  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
-}
-
-/* 左右の重力操作ボタンのホバーを横方向に */
-.insert-buttons.left .insert-btn.gravity-control:hover {
-  transform: translateX(3px);
-}
-
-.insert-buttons.right .insert-btn.gravity-control:hover {
-  transform: translateX(-3px);
-}
-
-/* プレイヤー2の重力操作ボタンの色 */
-.insert-btn.gravity-control[data-player="2"] {
-  background: #567ba0;
-  box-shadow: 0 4px 15px rgba(86, 123, 160, 0.4);
-}
-
-.insert-btn.gravity-control[data-player="2"]:hover {
-  background: linear-gradient(135deg, #5dade2, #3498db);
-  box-shadow: 0 6px 20px rgba(116, 185, 255, 0.6);
-}
-
-/* 重力操作ボタンの幅と高さを盤面に合わせる */
-.insert-btn.gravity-control.wide {
-  width: 360px; 
-  height: 50px;
-}
-
-.insert-btn.gravity-control.tall {
-  width: 50px;
-  height: 300px; 
-}
-
-/* 重力操作ボタンのテキストと矢印のスタイル */
-.gravity-text {
-  font-size: 1.2rem;
-  font-weight: 600;
-  text-align: center;
-  line-height: 1.2;
-}
-
-/* 左右の重力操作ボタンのテキストを90度回転 */
-.insert-buttons.left .gravity-text,
-.insert-buttons.right .gravity-text {
-  font-size: 1.2rem;
-  transform: rotate(90deg);
-  white-space: nowrap;
-  line-height: 1;
-  display: inline;
-}
-
-/* 左側の重力操作ボタンのテキストを270度回転 */
-.insert-buttons.left .gravity-text {
-  transform: rotate(270deg);
-}
-
-.gravity-arrow {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.insert-btn.active:active {
-  transform: translateY(-1px);
-}
-
-.current-player {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.player-1 {
-  color: #e74c3c;
-}
-
-.player-2 {
-  color: #3498db;
-}
+/* ========================================
+   BOARD GRID & CELLS
+   ======================================== */
 
 .board-grid {
   display: flex;
@@ -238,12 +47,26 @@
   position: relative;
 }
 
+/* ========================================
+   PLAYER COLORS & COINS
+   ======================================== */
+
+/* Player 1 (Red) */
 .board-cell.player-1 {
   background-color: #e74c3c;
 }
 
+.board-cell.player-1 .coin {
+  background: radial-gradient(circle at 30% 30%, #ff6b6b, #e74c3c);
+}
+
+/* Player 2 (Blue) */
 .board-cell.player-2 {
   background-color: #3498db;
+}
+
+.board-cell.player-2 .coin {
+  background: radial-gradient(circle at 30% 30%, #74b9ff, #3498db);
 }
 
 .coin {
@@ -254,83 +77,155 @@
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.board-cell.player-1 .coin {
-  background: radial-gradient(circle at 30% 30%, #ff6b6b, #e74c3c);
+/* ========================================
+   INSERT BUTTONS LAYOUT
+   ======================================== */
+
+.insert-buttons {
+  display: flex;
+  gap: 2px;
+  padding: 0 10px;
 }
 
-.board-cell.player-2 .coin {
-  background: radial-gradient(circle at 30% 30%, #74b9ff, #3498db);
+/* Top buttons */
+.insert-buttons.top {
+  margin-bottom: 12px;
 }
 
-/* 勝利時のボード全体のエフェクト */
-.board.victory {
-  animation: boardVictory 1.5s ease-out;
+/* Bottom buttons */
+.insert-buttons.bottom {
+  margin-top: 12px;
+  position: relative;
+  z-index: 1;
+  order: 2;
 }
 
-.board.victory .board-grid {
-  animation: gridVictory 1.5s ease-out;
+/* Left buttons */
+.insert-buttons.left {
+  flex-direction: column;
+  position: absolute;
+  left: -90px;
+  top: 85px;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2px;
 }
 
-/* 勝利したプレイヤーのコインのエフェクト */
-.board.victory .board-cell.player-1 .coin {
-  animation: coinVictoryRed 2s ease-in-out infinite;
+/* Right buttons */
+.insert-buttons.right {
+  flex-direction: column;
+  position: absolute;
+  right: -90px;
+  top: 85px;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2px;
 }
 
-.board.victory .board-cell.player-2 .coin {
-  animation: coinVictoryBlue 2s ease-in-out infinite;
+/* ========================================
+   INSERT BUTTON STYLES
+   ======================================== */
+
+.insert-btn {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  background: #567ba0;
 }
 
-/* 勝利時のボード全体のアニメーション */
-@keyframes boardVictory {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
+/* Active state */
+.insert-btn.active {
+  box-shadow: 0 4px 15px rgba(86, 123, 160, 0.4);
+  transform: translateY(0);
 }
 
-/* 勝利時のグリッドのアニメーション */
-@keyframes gridVictory {
-  0% {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  }
-  50% {
-    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
-  }
-  100% {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  }
+.insert-btn.active:active {
+  transform: translateY(-1px);
 }
 
-/* プレイヤー1（赤）の勝利コインアニメーション */
-@keyframes coinVictoryRed {
-  0%, 100% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 5px rgba(231, 76, 60, 0.5));
-  }
-  50% {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 15px rgba(231, 76, 60, 0.8));
-  }
+/* Hover effects for different positions */
+.insert-buttons.top .insert-btn.active:hover {
+  transform: translateY(3px);
 }
 
-/* プレイヤー2（青）の勝利コインアニメーション */
-@keyframes coinVictoryBlue {
-  0%, 100% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 5px rgba(52, 152, 219, 0.5));
-  }
-  50% {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 15px rgba(52, 152, 219, 0.8));
-  }
+.insert-buttons.bottom .insert-btn.active:hover {
+  transform: translateY(-3px);
 }
 
-/* 重力操作ボタンのホバー効果を位置に応じて調整 */
+.insert-buttons.left .insert-btn.active:hover {
+  transform: translateX(3px);
+}
+
+.insert-buttons.right .insert-btn.active:hover {
+  transform: translateX(-3px);
+}
+
+/* Player-specific hover colors */
+.insert-btn.active[data-player="1"]:hover {
+  background: linear-gradient(135deg, #ff5252, #d32f2f);
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+}
+
+.insert-btn.active[data-player="2"]:hover {
+  background: linear-gradient(135deg, #5dade2, #3498db);
+  box-shadow: 0 8px 25px rgba(116, 185, 255, 0.6);
+}
+
+/* Inactive state */
+.insert-btn.inactive {
+  background: linear-gradient(135deg, #bdc3c7, #95a5a6);
+  color: #7f8c8d;
+  cursor: not-allowed;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================
+   GRAVITY CONTROL BUTTONS
+   ======================================== */
+
+.insert-btn.gravity-control {
+  background: #567ba0;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(86, 123, 160, 0.4);
+  font-weight: bold;
+}
+
+/* Gravity control button sizes */
+.insert-btn.gravity-control.wide {
+  width: 360px; 
+  height: 50px;
+}
+
+.insert-btn.gravity-control.tall {
+  width: 50px;
+  height: 300px; 
+}
+
+/* Gravity control hover effects */
+.insert-btn.gravity-control:hover {
+  background: linear-gradient(135deg, #ff5252, #d32f2f);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+}
+
+.insert-btn.gravity-control[data-player="2"]:hover {
+  background: linear-gradient(135deg, #5dade2, #3498db);
+  box-shadow: 0 6px 20px rgba(116, 185, 255, 0.6);
+}
+
+/* Position-specific hover effects for gravity control */
 .insert-buttons.top .insert-btn.gravity-control:hover {
   transform: translateY(3px);
 }
@@ -345,4 +240,111 @@
 
 .insert-buttons.right .insert-btn.gravity-control:hover {
   transform: translateX(-3px);
+}
+
+/* ========================================
+   GRAVITY CONTROL TEXT & ARROWS
+   ======================================== */
+
+.gravity-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.gravity-arrow {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Rotated text for side buttons */
+.insert-buttons.left .gravity-text,
+.insert-buttons.right .gravity-text {
+  font-size: 1.2rem;
+  transform: rotate(90deg);
+  white-space: nowrap;
+  line-height: 1;
+  display: inline;
+}
+
+.insert-buttons.left .gravity-text {
+  transform: rotate(270deg);
+}
+
+/* ========================================
+   PLAYER INDICATORS
+   ======================================== */
+
+.current-player {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.player-1 {
+  color: #e74c3c;
+}
+
+.player-2 {
+  color: #3498db;
+}
+
+/* ========================================
+   VICTORY ANIMATIONS
+   ======================================== */
+
+/* Board victory effect */
+.board.victory {
+  animation: boardVictory 1.5s ease-out;
+}
+
+.board.victory .board-grid {
+  animation: gridVictory 1.5s ease-out;
+}
+
+/* Victory coin animations */
+.board.victory .board-cell.player-1 .coin {
+  animation: coinVictoryRed 2s ease-in-out infinite;
+}
+
+.board.victory .board-cell.player-2 .coin {
+  animation: coinVictoryBlue 2s ease-in-out infinite;
+}
+
+/* ========================================
+   KEYFRAME ANIMATIONS
+   ======================================== */
+
+@keyframes boardVictory {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes gridVictory {
+  0% { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); }
+  50% { box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6); }
+  100% { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); }
+}
+
+@keyframes coinVictoryRed {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 5px rgba(231, 76, 60, 0.5));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 15px rgba(231, 76, 60, 0.8));
+  }
+}
+
+@keyframes coinVictoryBlue {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 5px rgba(52, 152, 219, 0.5));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 15px rgba(52, 152, 219, 0.8));
+  }
 }
