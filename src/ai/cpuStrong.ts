@@ -157,7 +157,7 @@ const rollout = (board: (Player | null)[][], gravity: GravityDirection, toMove: 
   let g = gravity;
   let player = toMove;
   let steps = 0;
-  while (steps < 80) {
+  while (steps < 100) {
     const winner = detectWinner(b);
     if (winner === cpuPlayer) return 1;
     if (winner && winner !== 'draw') return 0;
@@ -295,7 +295,6 @@ export const chooseCpuActionStrong = (ctx: CpuContext): CpuAction | null => {
     const winner = detectWinner(nextBoard);
     if (winner === cpuPlayer) {
       // eslint-disable-next-line no-console
-      console.log('[Strong AI] choose immediate win', action);
       return action;
     }
   }
@@ -338,8 +337,6 @@ export const chooseCpuActionStrong = (ctx: CpuContext): CpuAction | null => {
 
   if (safeActions.length === 0) {
     const fallback = randomChoice(candidates);
-    // eslint-disable-next-line no-console
-    console.log('[Strong AI] no safe action; fallback to random candidate', fallback);
     return fallback;
   }
 
@@ -350,7 +347,7 @@ export const chooseCpuActionStrong = (ctx: CpuContext): CpuAction | null => {
   // If no moves at all (shouldn't happen), return null
   if (root.untriedActions.length === 0) return null;
 
-  const iterations = 400; // tune if necessary
+  const iterations = 1000; // tune if necessary
   for (let i = 0; i < iterations; i++) {
     // Selection
     let node = root;
