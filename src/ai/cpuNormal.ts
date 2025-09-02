@@ -216,7 +216,6 @@ export const chooseCpuActionNormal = (ctx: CpuContext): CpuAction | null => {
     const winner = detectWinner(nextBoard);
     if (winner === cpuPlayer) {
       // eslint-disable-next-line no-console
-      console.log('[Normal AI] choose immediate win', action);
       return action;
     }
   }
@@ -262,16 +261,12 @@ export const chooseCpuActionNormal = (ctx: CpuContext): CpuAction | null => {
   // 安全手が無い場合は、もうどうしようもないので適当なvalid手を返す。
   if (safeActions.length === 0) {
     const fallback = randomChoice(candidates);
-    // eslint-disable-next-line no-console
-    console.log('[Normal AI] no safe action; fallback to random candidate', fallback);
     return fallback;
   }
   const mcCandidates = safeActions;
-  // eslint-disable-next-line no-console
-  console.log('[Normal AI] safe actions set selected for MC (no opponent immediate win)');
 
   // Primitive Monte Carlo evaluation
-  const rolloutsPerAction = 100;
+  const rolloutsPerAction = 50;
   let best: CpuAction | null = null;
   let bestScore = -Infinity;
   for (const action of mcCandidates) {
@@ -293,14 +288,6 @@ export const chooseCpuActionNormal = (ctx: CpuContext): CpuAction | null => {
       total += rollout(nextBoard, nextGravity, nextPlayer, cpuPlayer);
     }
     const score = total / rolloutsPerAction;
-    // Debug: log evaluation per candidate
-    if (action.type === 'move') {
-      // eslint-disable-next-line no-console
-      console.log('[Normal AI] eval', { type: 'move', position: action.position, score, rollouts: rolloutsPerAction });
-    } else {
-      // eslint-disable-next-line no-console
-      console.log('[Normal AI] eval', { type: 'gravity', direction: action.direction, score, rollouts: rolloutsPerAction });
-    }
     if (score > bestScore) {
       bestScore = score;
       best = action;
