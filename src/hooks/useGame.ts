@@ -1,5 +1,8 @@
-import { useState, useCallback } from 'react';
-import { GameState, Board, Player, BOARD_ROWS, BOARD_COLS, GravityDirection } from '../types/game';
+import { useState, useCallback, useEffect } from 'react';
+import { GameState, Board, Player, BOARD_ROWS, BOARD_COLS, GravityDirection, GameMode, CpuDifficulty } from '../types/game';
+import { chooseCpuActionWeak } from '../ai/cpuWeak';
+import { chooseCpuActionNormal } from '../ai/cpuNormal';
+import { chooseCpuActionStrong } from '../ai/cpuStrong';
 
 const createEmptyBoard = (): Board => {
   return Array(BOARD_ROWS).fill(null).map(() => Array(BOARD_COLS).fill(null));
@@ -153,6 +156,9 @@ export const useGame = () => {
     gameStatus: 'playing',
     winner: null,
     gravityDirection: 'down',
+    mode: 'human-vs-human',
+    cpuPlayer: 2,
+    cpuDifficulty: 'weak',
   });
 
   const makeMove = useCallback((col: number) => {
@@ -260,19 +266,79 @@ export const useGame = () => {
   }, [gameState]);
 
   const resetGame = useCallback(() => {
-    setGameState({
+    setGameState(prev => ({
       board: createEmptyBoard(),
-      currentPlayer: 1,
+      currentPlayer: prev.mode === 'human-vs-cpu' ? (Math.random() < 0.5 ? 1 : 2) : 1,
       gameStatus: 'playing',
       winner: null,
       gravityDirection: 'down',
-    });
+      mode: prev.mode,
+      cpuPlayer: prev.cpuPlayer,
+      cpuDifficulty: prev.cpuDifficulty,
+    }));
   }, []);
+
+  const setMode = useCallback((mode: GameMode) => {
+    setGameState(prev => ({
+      ...prev,
+      mode,
+      board: createEmptyBoard(),
+      currentPlayer: mode === 'human-vs-cpu' ? (Math.random() < 0.5 ? 1 : 2) : 1,
+      gameStatus: 'playing',
+      winner: null,
+      gravityDirection: 'down',
+    }));
+  }, []);
+
+  const setCpuPlayer = useCallback((player: Player | null) => {
+    setGameState(prev => ({ ...prev, cpuPlayer: player }));
+  }, []);
+
+  const setCpuDifficulty = useCallback((difficulty: CpuDifficulty) => {
+    setGameState(prev => ({
+      ...prev,
+      cpuDifficulty: difficulty,
+      board: createEmptyBoard(),
+      currentPlayer: prev.mode === 'human-vs-cpu' ? (Math.random() < 0.5 ? 1 : 2) : 1,
+      gameStatus: 'playing',
+      winner: null,
+      gravityDirection: 'down',
+    }));
+  }, []);
+
+  // CPU の自動手番（ランダム）
+  useEffect(() => {
+    if (gameState.gameStatus !== 'playing') return;
+    if (gameState.mode !== 'human-vs-cpu') return;
+    if (gameState.cpuPlayer !== gameState.currentPlayer) return;
+
+    const timer = setTimeout(() => {
+      let action = null as ReturnType<typeof chooseCpuActionWeak>;
+      if (gameState.cpuDifficulty === 'weak') {
+        action = chooseCpuActionWeak({ board: gameState.board, gravityDirection: gameState.gravityDirection });
+      } else if (gameState.cpuDifficulty === 'normal') {
+        action = chooseCpuActionNormal({ board: gameState.board, gravityDirection: gameState.gravityDirection, currentPlayer: gameState.currentPlayer, cpuPlayer: gameState.cpuPlayer ?? 2 });
+      } else {
+        action = chooseCpuActionStrong({ board: gameState.board, gravityDirection: gameState.gravityDirection, currentPlayer: gameState.currentPlayer, cpuPlayer: gameState.cpuPlayer ?? 2 });
+      }
+      if (!action) return;
+      if (action.type === 'gravity') {
+        changeGravity(action.direction);
+      } else {
+        makeMove(action.position);
+      }
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [gameState, makeMove, changeGravity]);
 
   return {
     gameState,
     makeMove,
     changeGravity,
     resetGame,
+    setMode,
+    setCpuPlayer,
+    setCpuDifficulty,
   };
 };

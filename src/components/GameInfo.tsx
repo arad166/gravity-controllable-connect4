@@ -1,23 +1,33 @@
 import React from 'react';
-import { GameStatus } from '../types/game';
+import { GameStatus, GameMode, Player } from '../types/game';
 import './GameInfo.css';
 
 interface GameInfoProps {
   gameStatus: GameStatus;
   winner: number | null;
   currentPlayer: number; // 現在のプレイヤーを追加
+  mode: GameMode;
+  cpuPlayer: Player | null;
   onReset: () => void;
 }
 
-export const GameInfo: React.FC<GameInfoProps> = ({ gameStatus, winner, currentPlayer, onReset }) => {
+export const GameInfo: React.FC<GameInfoProps> = ({ gameStatus, winner, currentPlayer, mode, cpuPlayer, onReset }) => {
+  const getDisplayName = (player: number | null) => {
+    if (player == null) return '';
+    if (mode === 'human-vs-cpu') {
+      return player === cpuPlayer ? 'CPU' : 'Player';
+    }
+    return `Player ${player}`;
+  };
+
   const getStatusMessage = () => {
     switch (gameStatus) {
       case 'won':
-        return `Player ${winner} wins!`;
+        return `${getDisplayName(winner)} wins!`;
       case 'draw':
         return "Draw!";
       default:
-        return `Current Player: <span class="player-name">Player ${currentPlayer}</span>`;
+        return `Current Player: <span class="player-name">${getDisplayName(currentPlayer)}</span>`;
     }
   };
 
@@ -47,7 +57,7 @@ export const GameInfo: React.FC<GameInfoProps> = ({ gameStatus, winner, currentP
     if (gameStatus === 'playing') {
       return (
         <>
-          Current Player: <span className="player-name">Player {currentPlayer}</span>
+          Current Player: <span className="player-name">{getDisplayName(currentPlayer)}</span>
         </>
       );
     }

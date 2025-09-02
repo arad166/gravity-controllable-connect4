@@ -8,12 +8,18 @@ export type GameStatus = 'playing' | 'won' | 'draw';
 
 export type GravityDirection = 'down' | 'up' | 'left' | 'right';
 
+export type GameMode = 'human-vs-human' | 'human-vs-cpu';
+export type CpuDifficulty = 'weak' | 'normal' | 'strong';
+
 export interface GameState {
   board: Board;
   currentPlayer: Player;
   gameStatus: GameStatus;
   winner: Player | null;
   gravityDirection: GravityDirection;
+  mode: GameMode;
+  cpuPlayer: Player | null;
+  cpuDifficulty: CpuDifficulty;
 }
 
 export const BOARD_ROWS = 6;

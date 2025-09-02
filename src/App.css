@@ -59,3 +59,71 @@
   justify-content: center;
   align-items: center;
 }
+
+.mode-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.mode-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 800px;
+  column-gap: 16px;
+}
+
+.mode-controls.difficulty .mode-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.mode-label {
+  font-size: 0.85rem;
+  color: #5d6d7e;
+  letter-spacing: 0.02em;
+}
+
+.mode-toggle {
+  display: inline-flex;
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 4px 12px rgba(44, 62, 80, 0.12);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.mode-btn {
+  appearance: none;
+  border: none;
+  padding: 8px 14px;
+  background: transparent;
+  color: #34495e;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mode-btn:hover {
+  background: rgba(52, 73, 94, 0.06);
+}
+
+.mode-btn.active {
+  background: linear-gradient(180deg, #4dabf7, #228be6);
+  color: #fff;
+}
+
+.mode-icon {
+  font-size: 1rem;
+}
+
+.mode-text {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
