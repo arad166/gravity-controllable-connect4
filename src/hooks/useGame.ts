@@ -306,7 +306,7 @@ export const useGame = () => {
     }));
   }, []);
 
-  // CPU の自動手番（ランダム）
+  // CPU の自動手番
   useEffect(() => {
     if (gameState.gameStatus !== 'playing') return;
     if (gameState.mode !== 'human-vs-cpu') return;

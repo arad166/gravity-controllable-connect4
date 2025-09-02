@@ -198,11 +198,83 @@ export const chooseCpuActionNormal = (ctx: CpuContext): CpuAction | null => {
     ...alternativeGravities.map(d => ({ type: 'gravity' as const, direction: d })),
   ];
 
+  // 1) 即勝ちチェック（必勝手があれば即採用）
+  for (const action of candidates) {
+    let nextBoard = cloneBoard(board);
+    let nextGravity = gravityDirection;
+    let nextPlayer: Player = currentPlayer;
+    if (action.type === 'gravity') {
+      nextBoard = applyGravity(nextBoard, action.direction);
+      nextGravity = action.direction;
+      nextPlayer = nextPlayer === 1 ? 2 : 1;
+    } else {
+      const placed = applyMove(nextBoard, nextGravity, action.position, nextPlayer);
+      if (!placed) continue;
+      nextBoard = placed;
+      nextPlayer = nextPlayer === 1 ? 2 : 1;
+    }
+    const winner = detectWinner(nextBoard);
+    if (winner === cpuPlayer) {
+      // eslint-disable-next-line no-console
+      console.log('[Normal AI] choose immediate win', action);
+      return action;
+    }
+  }
+
+  // 2) 即負け回避（自手の後に相手が即勝ちできない手を優先）
+  const opponent: Player = cpuPlayer === 1 ? 2 : 1;
+  const safeActions: CpuAction[] = [];
+  for (const action of candidates) {
+    let nextBoard = cloneBoard(board);
+    let nextGravity = gravityDirection;
+    let nextPlayer: Player = currentPlayer;
+    if (action.type === 'gravity') {
+      nextBoard = applyGravity(nextBoard, action.direction);
+      nextGravity = action.direction;
+      nextPlayer = nextPlayer === 1 ? 2 : 1;
+    } else {
+      const placed = applyMove(nextBoard, nextGravity, action.position, nextPlayer);
+      if (!placed) continue;
+      nextBoard = placed;
+      nextPlayer = nextPlayer === 1 ? 2 : 1;
+    }
+
+    // 相手ターンでの即勝ち手が存在するか？
+    const oppMovePositions = getValidMovePositions(nextBoard, nextGravity);
+    const oppGravs = getAlternativeGravities(nextGravity);
+    let opponentHasImmediateWin = false;
+    for (const pos of oppMovePositions) {
+      const placedForOpp = applyMove(nextBoard, nextGravity, pos, opponent);
+      if (!placedForOpp) continue;
+      const w = detectWinner(placedForOpp);
+      if (w === opponent) { opponentHasImmediateWin = true; break; }
+    }
+    if (!opponentHasImmediateWin) {
+      for (const g of oppGravs) {
+        const afterG = applyGravity(nextBoard, g);
+        const w = detectWinner(afterG);
+        if (w === opponent) { opponentHasImmediateWin = true; break; }
+      }
+    }
+    if (!opponentHasImmediateWin) safeActions.push(action);
+  }
+  // 3) モンテカルロで選択（安全手があればそれらを対象）。
+  // 安全手が無い場合は、もうどうしようもないので適当なvalid手を返す。
+  if (safeActions.length === 0) {
+    const fallback = randomChoice(candidates);
+    // eslint-disable-next-line no-console
+    console.log('[Normal AI] no safe action; fallback to random candidate', fallback);
+    return fallback;
+  }
+  const mcCandidates = safeActions;
+  // eslint-disable-next-line no-console
+  console.log('[Normal AI] safe actions set selected for MC (no opponent immediate win)');
+
   // Primitive Monte Carlo evaluation
-  const rolloutsPerAction = 36;
+  const rolloutsPerAction = 100;
   let best: CpuAction | null = null;
   let bestScore = -Infinity;
-  for (const action of candidates) {
+  for (const action of mcCandidates) {
     let total = 0;
     for (let i = 0; i < rolloutsPerAction; i++) {
       let nextBoard = cloneBoard(board);
@@ -221,11 +293,20 @@ export const chooseCpuActionNormal = (ctx: CpuContext): CpuAction | null => {
       total += rollout(nextBoard, nextGravity, nextPlayer, cpuPlayer);
     }
     const score = total / rolloutsPerAction;
+    // Debug: log evaluation per candidate
+    if (action.type === 'move') {
+      // eslint-disable-next-line no-console
+      console.log('[Normal AI] eval', { type: 'move', position: action.position, score, rollouts: rolloutsPerAction });
+    } else {
+      // eslint-disable-next-line no-console
+      console.log('[Normal AI] eval', { type: 'gravity', direction: action.direction, score, rollouts: rolloutsPerAction });
+    }
     if (score > bestScore) {
       bestScore = score;
       best = action;
     }
   }
+  
   return best;
 };
 
