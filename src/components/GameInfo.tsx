@@ -70,11 +70,6 @@ export const GameInfo: React.FC<GameInfoProps> = ({ gameStatus, winner, currentP
       <div className={getStatusMessageClass()}>
         {renderStatusMessage()}
       </div>
-      
-      {/* 常にボタンを表示して位置を固定 */}
-      <button className="reset-button" onClick={onReset}>
-        {getButtonText()}
-      </button>
     </div>
   );
 };

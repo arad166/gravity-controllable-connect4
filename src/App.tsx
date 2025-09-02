@@ -52,40 +52,48 @@ function App() {
             </div>
             <div className="mode-controls difficulty">
               <div className="mode-label">Difficulty</div>
-              <div className="mode-toggle" role="tablist" aria-label="CPU difficulty">
-                <button
-                  role="tab"
-                  aria-selected={gameState.cpuDifficulty === 'weak'}
-                  className={`mode-btn ${gameState.cpuDifficulty === 'weak' ? 'active' : ''}`}
-                  onClick={() => setCpuDifficulty('weak')}
-                  title="Weak"
-                  disabled={gameState.mode === 'human-vs-human'}
-                >
-                  <span className="mode-icon">🐇</span>
-                  <span className="mode-text">Weak</span>
-                </button>
-                <button
-                  role="tab"
-                  aria-selected={gameState.cpuDifficulty === 'normal'}
-                  className={`mode-btn ${gameState.cpuDifficulty === 'normal' ? 'active' : ''}`}
-                  onClick={() => setCpuDifficulty('normal')}
-                  title="Normal"
-                  disabled={gameState.mode === 'human-vs-human'}
-                >
-                  <span className="mode-icon">🐑</span>
-                  <span className="mode-text">Normal</span>
-                </button>
-                <button
-                  role="tab"
-                  aria-selected={gameState.cpuDifficulty === 'strong'}
-                  className={`mode-btn ${gameState.cpuDifficulty === 'strong' ? 'active' : ''}`}
-                  onClick={() => setCpuDifficulty('strong')}
-                  title="Strong"
-                  disabled={gameState.mode === 'human-vs-human'}
-                >
-                  <span className="mode-icon">🦁</span>
-                  <span className="mode-text">Strong</span>
-                </button>
+              <div className="difficulty-row">
+                <div className="mode-toggle" role="tablist" aria-label="CPU difficulty">
+                  <button
+                    role="tab"
+                    aria-selected={gameState.cpuDifficulty === 'weak'}
+                    className={`mode-btn ${gameState.cpuDifficulty === 'weak' ? 'active' : ''}`}
+                    onClick={() => setCpuDifficulty('weak')}
+                    title="Weak"
+                    disabled={gameState.mode === 'human-vs-human'}
+                  >
+                    <span className="mode-icon">🐇</span>
+                    <span className="mode-text">Weak</span>
+                  </button>
+                  <button
+                    role="tab"
+                    aria-selected={gameState.cpuDifficulty === 'normal'}
+                    className={`mode-btn ${gameState.cpuDifficulty === 'normal' ? 'active' : ''}`}
+                    onClick={() => setCpuDifficulty('normal')}
+                    title="Normal"
+                    disabled={gameState.mode === 'human-vs-human'}
+                  >
+                    <span className="mode-icon">🐑</span>
+                    <span className="mode-text">Normal</span>
+                  </button>
+                  <button
+                    role="tab"
+                    aria-selected={gameState.cpuDifficulty === 'strong'}
+                    className={`mode-btn ${gameState.cpuDifficulty === 'strong' ? 'active' : ''}`}
+                    onClick={() => setCpuDifficulty('strong')}
+                    title="Strong"
+                    disabled={gameState.mode === 'human-vs-human'}
+                  >
+                    <span className="mode-icon">🦁</span>
+                    <span className="mode-text">Strong</span>
+                  </button>
+                </div>
+                <div className="mode-toggle reset-inline" aria-label="Reset game">
+                  <button className="mode-btn" onClick={resetGame} title="Reset">
+                    <span className="mode-text">Reset</span>
+                    <span className="mode-icon">🔄</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>

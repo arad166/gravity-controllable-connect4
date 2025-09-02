@@ -81,6 +81,21 @@
   cursor: not-allowed;
 }
 
+/* Nudge the Difficulty label slightly to the left */
+.mode-controls.difficulty .mode-label {
+  margin-left: -130px;
+}
+
+.difficulty-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reset-inline {
+  margin-left: 12px;
+}
+
 .mode-label {
   font-size: 0.85rem;
   color: #5d6d7e;
