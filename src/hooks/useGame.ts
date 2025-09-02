@@ -73,10 +73,11 @@ const applyGravity = (board: Board, direction: GravityDirection): Board => {
   return newBoard;
 };
 
-// 重力方向に応じた勝利判定
-const checkWinnerWithGravity = (board: Board, direction: GravityDirection): { winner: Player | null; hasWon: boolean } => {
+// 重力方向に応じた勝利判定（同時勝利は引き分け扱いにするため isDoubleWin を返す）
+const checkWinnerWithGravity = (board: Board, direction: GravityDirection): { winner: Player | null; hasWon: boolean; isDoubleWin: boolean } => {
   let winner: Player | null = null;
   let hasWon = false;
+  let isDoubleWin = false;
   
   // 全セルをチェック
   for (let row = 0; row < BOARD_ROWS; row++) {
@@ -89,14 +90,17 @@ const checkWinnerWithGravity = (board: Board, direction: GravityDirection): { wi
             hasWon = true;
           } else if (winner !== player) {
             // 両プレイヤーが同時に勝利した場合は引き分け
-            return { winner: null, hasWon: false };
+            isDoubleWin = true;
           }
         }
       }
     }
   }
   
-  return { winner, hasWon };
+  if (isDoubleWin) {
+    return { winner: null, hasWon: true, isDoubleWin: true };
+  }
+  return { winner, hasWon, isDoubleWin: false };
 };
 
 const checkWinner = (board: Board, row: number, col: number, player: Player): boolean => {
@@ -207,9 +211,17 @@ export const useGame = () => {
     const boardAfterGravity = applyGravity(newBoard, gameState.gravityDirection);
     
     // 勝利判定
-    const { winner, hasWon } = checkWinnerWithGravity(boardAfterGravity, gameState.gravityDirection);
+    const { winner, hasWon, isDoubleWin } = checkWinnerWithGravity(boardAfterGravity, gameState.gravityDirection);
     
     if (hasWon) {
+      if (isDoubleWin) {
+        setGameState(prev => ({
+          ...prev,
+          board: boardAfterGravity,
+          gameStatus: 'draw',
+        }));
+        return;
+      }
       setGameState(prev => ({
         ...prev,
         board: boardAfterGravity,
@@ -238,9 +250,18 @@ export const useGame = () => {
     const newBoard = applyGravity(gameState.board, direction);
     
     // 勝利判定
-    const { winner, hasWon } = checkWinnerWithGravity(newBoard, direction);
+    const { winner, hasWon, isDoubleWin } = checkWinnerWithGravity(newBoard, direction);
     
     if (hasWon) {
+      if (isDoubleWin) {
+        setGameState(prev => ({
+          ...prev,
+          board: newBoard,
+          gameStatus: 'draw',
+          gravityDirection: direction,
+        }));
+        return;
+      }
       setGameState(prev => ({
         ...prev,
         board: newBoard,

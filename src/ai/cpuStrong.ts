@@ -267,7 +267,85 @@ const bestActionFromRoot = (root: Node): CpuAction | null => {
 
 export const chooseCpuActionStrong = (ctx: CpuContext): CpuAction | null => {
   const { board, gravityDirection, currentPlayer, cpuPlayer } = ctx;
+
+  // Generate root candidates
+  const movePositions = getValidMovePositions(board, gravityDirection);
+  if (movePositions.length === 0) return null;
+  const alternativeGravities = getAlternativeGravities(gravityDirection);
+  const candidates: CpuAction[] = [
+    ...movePositions.map(p => ({ type: 'move' as const, position: p })),
+    ...alternativeGravities.map(d => ({ type: 'gravity' as const, direction: d })),
+  ];
+
+  // 1) Immediate win
+  for (const action of candidates) {
+    let nextBoard = cloneBoard(board);
+    let nextGravity = gravityDirection;
+    let nextPlayer: Player = currentPlayer;
+    if (action.type === 'gravity') {
+      nextBoard = applyGravity(nextBoard, action.direction);
+      nextGravity = action.direction;
+      nextPlayer = nextPlayer === 1 ? 2 : 1;
+    } else {
+      const placed = applyMove(nextBoard, nextGravity, action.position, nextPlayer);
+      if (!placed) continue;
+      nextBoard = placed;
+      nextPlayer = nextPlayer === 1 ? 2 : 1;
+    }
+    const winner = detectWinner(nextBoard);
+    if (winner === cpuPlayer) {
+      // eslint-disable-next-line no-console
+      console.log('[Strong AI] choose immediate win', action);
+      return action;
+    }
+  }
+
+  // 2) Safe actions (avoid giving opponent immediate win)
+  const opponent: Player = cpuPlayer === 1 ? 2 : 1;
+  const safeActions: CpuAction[] = [];
+  for (const action of candidates) {
+    let nextBoard = cloneBoard(board);
+    let nextGravity = gravityDirection;
+    let nextPlayer: Player = currentPlayer;
+    if (action.type === 'gravity') {
+      nextBoard = applyGravity(nextBoard, action.direction);
+      nextGravity = action.direction;
+      nextPlayer = nextPlayer === 1 ? 2 : 1;
+    } else {
+      const placed = applyMove(nextBoard, nextGravity, action.position, nextPlayer);
+      if (!placed) continue;
+      nextBoard = placed;
+      nextPlayer = nextPlayer === 1 ? 2 : 1;
+    }
+    let opponentHasImmediateWin = false;
+    const oppMoves = getValidMovePositions(nextBoard, nextGravity);
+    const oppGravs = getAlternativeGravities(nextGravity);
+    for (const pos of oppMoves) {
+      const placedForOpp = applyMove(nextBoard, nextGravity, pos, opponent);
+      if (!placedForOpp) continue;
+      const w = detectWinner(placedForOpp);
+      if (w === opponent) { opponentHasImmediateWin = true; break; }
+    }
+    if (!opponentHasImmediateWin) {
+      for (const g of oppGravs) {
+        const afterG = applyGravity(nextBoard, g);
+        const w = detectWinner(afterG);
+        if (w === opponent) { opponentHasImmediateWin = true; break; }
+      }
+    }
+    if (!opponentHasImmediateWin) safeActions.push(action);
+  }
+
+  if (safeActions.length === 0) {
+    const fallback = randomChoice(candidates);
+    // eslint-disable-next-line no-console
+    console.log('[Strong AI] no safe action; fallback to random candidate', fallback);
+    return fallback;
+  }
+
   const root = new Node(cloneBoard(board), gravityDirection, currentPlayer, cpuPlayer, null, null);
+  // Constrain root expansion to safe actions
+  root.untriedActions = safeActions.map(a => a.type === 'move' ? ({ type: 'move' as const, position: a.position }) : ({ type: 'gravity' as const, direction: a.direction }));
 
   // If no moves at all (shouldn't happen), return null
   if (root.untriedActions.length === 0) return null;
