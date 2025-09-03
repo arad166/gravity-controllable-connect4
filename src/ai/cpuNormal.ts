@@ -198,7 +198,7 @@ export const chooseCpuActionNormal = (ctx: CpuContext): CpuAction | null => {
     ...alternativeGravities.map(d => ({ type: 'gravity' as const, direction: d })),
   ];
 
-  // 1) 即勝ちチェック（必勝手があれば即採用）
+  // 1) 即勝ちチェック（必勝手があれば1/2の確率で即採用）
   for (const action of candidates) {
     let nextBoard = cloneBoard(board);
     let nextGravity = gravityDirection;
@@ -215,12 +215,15 @@ export const chooseCpuActionNormal = (ctx: CpuContext): CpuAction | null => {
     }
     const winner = detectWinner(nextBoard);
     if (winner === cpuPlayer) {
-      // eslint-disable-next-line no-console
-      return action;
+      // 1/2の確率で即勝ち手を見逃す
+      if (Math.random() < 0.5) {
+        return action;
+      }
+      // 見逃した場合は次の処理に進む
     }
   }
 
-  // 2) 即負け回避（自手の後に相手が即勝ちできない手を優先）
+  // 2) 即負け回避（自手の後に相手が即勝ちできない手を優先、1/2の確率で見逃す）
   const opponent: Player = cpuPlayer === 1 ? 2 : 1;
   const safeActions: CpuAction[] = [];
   for (const action of candidates) {
@@ -255,7 +258,17 @@ export const chooseCpuActionNormal = (ctx: CpuContext): CpuAction | null => {
         if (w === opponent) { opponentHasImmediateWin = true; break; }
       }
     }
-    if (!opponentHasImmediateWin) safeActions.push(action);
+    
+    // 1/2の確率で即負け手を見逃す
+    if (opponentHasImmediateWin) {
+      if (Math.random() < 0.5) {
+        // 即負け手を見逃した場合、安全手として扱う
+        safeActions.push(action);
+      }
+      // 見逃さなかった場合は安全手に含めない
+    } else {
+      safeActions.push(action);
+    }
   }
   // 3) モンテカルロで選択（安全手があればそれらを対象）。
   // 安全手が無い場合は、もうどうしようもないので適当なvalid手を返す。
