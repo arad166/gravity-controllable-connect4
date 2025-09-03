@@ -74,6 +74,7 @@
   width: 100%;
   max-width: 800px;
   column-gap: 16px;
+  position: relative;
 }
 
 .mode-controls.difficulty .mode-btn:disabled {
@@ -86,6 +87,12 @@
   margin-left: -130px;
 }
 
+.mode-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .difficulty-row {
   display: flex;
   align-items: center;
@@ -96,10 +103,15 @@
   margin-left: 12px;
 }
 
+.info-inline {
+  margin-left: 12px;
+}
+
 .mode-label {
   font-size: 0.85rem;
   color: #5d6d7e;
   letter-spacing: 0.02em;
+  margin-left: 125px;
 }
 
 .mode-toggle {
@@ -141,4 +153,117 @@
 .mode-text {
   font-weight: 600;
   font-size: 0.9rem;
+}
+
+/* Info Button Styles - Now using same design as Reset button */
+
+/* Info Modal Styles */
+.info-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.info-modal {
+  background: white;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.info-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px 16px 24px;
+  border-bottom: 1px solid #e1e5e9;
+}
+
+.info-modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.close-btn {
+  appearance: none;
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  background: #f8f9fa;
+  color: #495057;
+}
+
+.info-modal-content {
+  padding: 20px 24px 24px 24px;
+}
+
+.info-modal-content h3 {
+  text-align: left;
+}
+
+.info-modal-content ul {
+  text-align: left;
+}
+
+.info-modal-content h3 {
+  margin: 0 0 12px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #34495e;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 4px;
+}
+
+.info-modal-content ul {
+  margin: 0 0 20px 0;
+  padding-left: 20px;
+}
+
+.info-modal-content li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  color: #2c3e50;
+}
+
+.info-modal-content strong {
+  color: #3498db;
 }
