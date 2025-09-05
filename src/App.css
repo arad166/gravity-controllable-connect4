@@ -76,6 +76,67 @@
   position: relative;
 }
 
+/* モバイル対応 */
+@media (max-width: 768px) {
+  .mode-bar {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    max-width: 100%;
+  }
+  
+  .mode-controls {
+    width: 100%;
+    max-width: 320px;
+  }
+  
+  .mode-label {
+    margin-left: 0 !important;
+    text-align: center;
+  }
+  
+  .mode-controls.difficulty .mode-label {
+    margin-left: 0 !important;
+  }
+  
+  .mode-row, .difficulty-row {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .App-header {
+    margin: 0px 5px 5px 5px;
+  }
+  
+  .App-main {
+    padding: 5px;
+  }
+}
+
+/* より小さなスマホ画面対応 */
+@media (max-width: 480px) {
+  .mode-btn {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+  
+  .mode-text {
+    font-size: 0.8rem;
+  }
+  
+  .mode-icon {
+    font-size: 0.9rem;
+  }
+  
+  .App-header h1 {
+    font-size: 1.2rem;
+  }
+  
+  .App-header p {
+    font-size: 0.8rem;
+  }
+}
+
 .mode-controls.difficulty .mode-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -152,6 +213,7 @@
 .mode-text {
   font-weight: 600;
   font-size: 0.9rem;
+  white-space: nowrap;
 }
 
 /* Info Button Styles - Now using same design as Reset button */

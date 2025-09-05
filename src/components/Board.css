@@ -36,8 +36,8 @@
 }
 
 .board-cell {
-  width: 50px;
-  height: 50px;
+  width: clamp(30px, 6vw, 50px);
+  height: clamp(30px, 6vw, 50px);
   background-color: #ecf0f1;
   border-radius: 50%;
   display: flex;
@@ -70,8 +70,8 @@
 }
 
 .coin {
-  width: 42px;
-  height: 42px;
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
   border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3), transparent);
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -89,12 +89,12 @@
 
 /* Top buttons */
 .insert-buttons.top {
-  margin-bottom: 12px;
+  margin-bottom: clamp(8px, 2vw, 12px);
 }
 
 /* Bottom buttons */
 .insert-buttons.bottom {
-  margin-top: 12px;
+  margin-top: clamp(8px, 2vw, 12px);
   position: relative;
   z-index: 1;
   order: 2;
@@ -104,10 +104,10 @@
 .insert-buttons.left {
   flex-direction: column;
   position: absolute;
-  left: -90px;
-  top: 85px;
+  left: clamp(-80px, -12vw, -90px);
+  top: 0;
   height: 100%;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   gap: 2px;
 }
@@ -116,10 +116,10 @@
 .insert-buttons.right {
   flex-direction: column;
   position: absolute;
-  right: -90px;
-  top: 85px;
+  right:  clamp(-80px, -12vw, -90px);
+  top: 0;
   height: 100%;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   gap: 2px;
 }
@@ -129,12 +129,12 @@
    ======================================== */
 
 .insert-btn {
-  width: 50px;
-  height: 50px;
+  width: clamp(30px, 6vw, 50px);
+  height: clamp(30px, 6vw, 50px);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.4rem;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -205,13 +205,13 @@
 
 /* Gravity control button sizes */
 .insert-btn.gravity-control.wide {
-  width: 360px; 
-  height: 50px;
+  width: calc(7 * clamp(30px, 6vw, 50px) + 12px); /* 7セル + ギャップ */
+  height: clamp(30px, 6vw, 50px);
 }
 
 .insert-btn.gravity-control.tall {
-  width: 50px;
-  height: 300px; 
+  width: clamp(30px, 6vw, 50px);
+  height: calc(6 * clamp(30px, 6vw, 50px) + 10px); /* 6セル + ギャップ */
 }
 
 /* Gravity control hover effects */
@@ -262,9 +262,11 @@
 .insert-buttons.left .gravity-text,
 .insert-buttons.right .gravity-text {
   font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
   transform: rotate(90deg);
   white-space: nowrap;
-  line-height: 1;
   display: inline;
 }
 
@@ -346,5 +348,113 @@
   50% {
     transform: scale(1.1);
     filter: drop-shadow(0 0 15px rgba(52, 152, 219, 0.8));
+  }
+}
+
+/* ========================================
+   MOBILE RESPONSIVE ADJUSTMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+  .board {
+    gap: 0px;
+  }
+  
+  .board-grid {
+    padding: 6px;
+  }
+  
+  .board-row {
+    gap: 2px;
+  }
+  
+  .board-cell {
+    width: clamp(25px, 8vw, 40px);
+    height: clamp(25px, 8vw, 40px);
+  }
+  
+  .insert-btn {
+    width: clamp(25px, 8vw, 40px);
+    height: clamp(25px, 8vw, 40px);
+    font-size: clamp(0.8rem, 3vw, 1.2rem);
+  }
+  
+  .insert-btn.gravity-control.wide {
+    width: calc(7 * clamp(25px, 8vw, 40px) + 12px); /* 7セル + ギャップ */
+    height: clamp(25px, 8vw, 40px);
+  }
+  
+  .insert-btn.gravity-control.tall {
+    width: clamp(25px, 8vw, 40px);
+    height: calc(6 * clamp(25px, 8vw, 40px) + 10px); /* 6セル + ギャップ */
+  }
+  
+  .insert-buttons.left {
+    left: clamp(-60px, -15vw, -70px);
+    top: 0;
+  }
+  
+  .insert-buttons.right {
+    right: clamp(-60px, -15vw, -70px);
+    top: 0;
+  }
+  
+  .gravity-text {
+    font-size: clamp(0.8rem, 2.5vw, 1rem);
+  }
+  
+  .gravity-arrow {
+    font-size: clamp(0.8rem, 2.5vw, 1rem);
+  }
+  
+  .insert-buttons.left .gravity-text,
+  .insert-buttons.right .gravity-text {
+    font-size: clamp(0.8rem, 2.5vw, 1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .board-cell {
+    width: clamp(20px, 10vw, 30px);
+    height: clamp(20px, 10vw, 30px);
+  }
+  
+  .insert-btn {
+    width: clamp(20px, 10vw, 30px);
+    height: clamp(20px, 10vw, 30px);
+    font-size: clamp(0.7rem, 4vw, 1rem);
+  }
+  
+  .insert-btn.gravity-control.wide {
+    width: calc(7 * clamp(20px, 10vw, 30px) + 12px); /* 7セル + ギャップ */
+    height: clamp(20px, 10vw, 30px);
+  }
+  
+  .insert-btn.gravity-control.tall {
+    width: clamp(20px, 10vw, 30px);
+    height: calc(6 * clamp(20px, 10vw, 30px) + 10px); /* 6セル + ギャップ */
+  }
+  
+  .insert-buttons.left {
+    left: clamp(-45px, -25vw, -70px);
+    top: 0;
+  }
+  
+  .insert-buttons.right {
+    right: clamp(-45px, -25vw, -70px);
+    top: 0;
+  }
+  
+  .gravity-text {
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
+  }
+  
+  .gravity-arrow {
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
+  }
+  
+  .insert-buttons.left .gravity-text,
+  .insert-buttons.right .gravity-text {
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
   }
 }

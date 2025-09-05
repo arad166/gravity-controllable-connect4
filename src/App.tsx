@@ -23,7 +23,6 @@ function App() {
         <div className="game-container">
           <div className="mode-bar">
             <div className="mode-controls">
-              <div className="mode-label">Mode</div>
               <div className="mode-row">
                 <div className="mode-toggle info-inline" aria-label="Game info">
                   <button className="mode-btn" onClick={() => setShowInfo(true)} title="ゲーム情報">
@@ -40,7 +39,7 @@ function App() {
                   title="Human vs Human"
                 >
                   <span className="mode-icon">👥</span>
-                  <span className="mode-text">Human</span>
+                  <span className="mode-text">vs Human</span>
                 </button>
                 <button
                   role="tab"
@@ -50,13 +49,13 @@ function App() {
                   title="Human vs CPU"
                 >
                   <span className="mode-icon">🤖</span>
-                  <span className="mode-text">CPU</span>
+                  <span className="mode-text">vs CPU</span>
                 </button>
                 </div>
               </div>
             </div>
             <div className="mode-controls difficulty">
-              <div className="mode-label">Difficulty</div>
+              <div className="mode-label">CPU Difficulty</div>
               <div className="difficulty-row">
                 <div className="mode-toggle" role="tablist" aria-label="CPU difficulty">
                   <button
