@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/gravity-controllable-connect4/static/css/main.f9fce855.css",
+    "main.css": "/gravity-controllable-connect4/static/css/main.573c11aa.css",
     "main.js": "/gravity-controllable-connect4/static/js/main.c482cc60.js",
     "static/js/453.8acc1d68.chunk.js": "/gravity-controllable-connect4/static/js/453.8acc1d68.chunk.js",
     "index.html": "/gravity-controllable-connect4/index.html",
-    "main.f9fce855.css.map": "/gravity-controllable-connect4/static/css/main.f9fce855.css.map",
+    "main.573c11aa.css.map": "/gravity-controllable-connect4/static/css/main.573c11aa.css.map",
     "main.c482cc60.js.map": "/gravity-controllable-connect4/static/js/main.c482cc60.js.map",
     "453.8acc1d68.chunk.js.map": "/gravity-controllable-connect4/static/js/453.8acc1d68.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f9fce855.css",
+    "static/css/main.573c11aa.css",
     "static/js/main.c482cc60.js"
   ]
 }
