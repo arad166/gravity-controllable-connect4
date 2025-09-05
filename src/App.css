@@ -66,6 +66,19 @@
   gap: 8px;
 }
 
+.mode-controls:has(.mode-label) {
+  position: relative;
+  padding-top: 20px;
+}
+
+.mode-controls:has(.mode-label) .mode-label {
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-left: 0;
+}
+
 .mode-bar {
   display: flex;
   align-items: flex-end;
@@ -144,7 +157,7 @@
 
 /* Nudge the Difficulty label slightly to the left */
 .mode-controls.difficulty .mode-label {
-  margin-left: -130px;
+  margin-left: 0px;
 }
 
 .mode-row {
@@ -161,6 +174,7 @@
 
 .reset-inline {
   margin-left: 12px;
+  margin-right: 12px;
 }
 
 .info-inline {
@@ -172,6 +186,7 @@
   color: #5d6d7e;
   letter-spacing: 0.02em;
   margin-left: 125px;
+  text-align: center;
 }
 
 .mode-toggle {

@@ -30,6 +30,17 @@ function App() {
                     <span className="mode-text">Info</span>
                   </button>
                 </div>
+                <div className="mode-toggle reset-inline" aria-label="Reset game">
+                  <button className="mode-btn" onClick={resetGame} title="Reset">
+                    <span className="mode-icon">🔄</span>
+                    <span className="mode-text">Reset</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="mode-controls">
+              <div className="mode-label">Mode</div>
+              <div className="mode-row">
                 <div className="mode-toggle" role="tablist" aria-label="Game mode">
                 <button
                   role="tab"
@@ -38,8 +49,7 @@ function App() {
                   onClick={() => setMode('human-vs-human')}
                   title="Human vs Human"
                 >
-                  <span className="mode-icon">👥</span>
-                  <span className="mode-text">vs Human</span>
+                  <span className="mode-text">vs 👥Human</span>
                 </button>
                 <button
                   role="tab"
@@ -48,8 +58,7 @@ function App() {
                   onClick={() => setMode('human-vs-cpu')}
                   title="Human vs CPU"
                 >
-                  <span className="mode-icon">🤖</span>
-                  <span className="mode-text">vs CPU</span>
+                  <span className="mode-text">vs 🤖CPU</span>
                 </button>
                 </div>
               </div>
@@ -90,12 +99,6 @@ function App() {
                   >
                     <span className="mode-icon">🦁</span>
                     <span className="mode-text">Strong</span>
-                  </button>
-                </div>
-                <div className="mode-toggle reset-inline" aria-label="Reset game">
-                  <button className="mode-btn" onClick={resetGame} title="Reset">
-                    <span className="mode-icon">🔄</span>
-                    <span className="mode-text">Reset</span>
                   </button>
                 </div>
               </div>
