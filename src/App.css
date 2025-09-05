@@ -131,6 +131,8 @@
   .mode-btn {
     padding: 6px 10px;
     font-size: 0.8rem;
+    height: 36px;
+    min-height: 36px;
   }
   
   .mode-text {
@@ -210,6 +212,9 @@
   gap: 8px;
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease;
+  height: 40px;
+  min-height: 40px;
+  box-sizing: border-box;
 }
 
 .mode-btn:hover {
