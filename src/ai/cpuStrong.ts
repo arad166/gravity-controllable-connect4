@@ -347,7 +347,7 @@ export const chooseCpuActionStrong = (ctx: CpuContext): CpuAction | null => {
   // If no moves at all (shouldn't happen), return null
   if (root.untriedActions.length === 0) return null;
 
-  const iterations = 1000; // tune if necessary
+  const iterations = 5000; // tune if necessary
   for (let i = 0; i < iterations; i++) {
     // Selection
     let node = root;
